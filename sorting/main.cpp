@@ -116,11 +116,21 @@ namespace sorting {
     const auto end_task = []() {
       cout << endl;
     };
+
     const auto foreach_sorting = [](auto&& fn_list, auto&& each) {
+      vector<pair<string, double>> results;
       for (const auto& fn : fn_list) {
-        cout << fn.first.c_str() << " start: ";
+        /*cout << fn.first.c_str() << " start: ";
         auto time = each(fn.second);
-        cout << "finish in " << time << "s" << endl;
+        cout << "finish in " << time << "s" << endl;*/
+        results.push_back(make_pair(fn.first, each(fn.second)));
+      }
+      std::sort(results.begin(), results.end(), [](const auto& x, const auto& y) {
+        return x.second < y.second;
+      });
+      const auto first_ret = results[0];
+      for (const auto& ret : results) {
+        cout << ret.first.c_str() << " finish in " << ret.second << "ms" << endl;
       }
     };
 
@@ -141,7 +151,6 @@ namespace sorting {
       return MeasureDescendingOrderCase(num, sort_fn);
     });
     end_task();
-
   }
 }
 
@@ -166,6 +175,7 @@ int main()
   sorting::RunSortingTest(10, tasks);
   sorting::RunSortingTest(100, tasks);
   sorting::RunSortingTest(2048, tasks);
+  sorting::RunSortingTest(100000, tasks);
 
   vector<pair<string, sorting::SortFn>> tasks_of_running_fast = {
     make_pair("std::sort", sorting::stdsort),
