@@ -1,6 +1,6 @@
-## O(n^2)的排序算法
+[Open in GitHub](https://github.com/leecjson/AlgoTest/tree/master/sorting)  
 
-[Open in GitHub](https://github.com/leecjson/AlgoTest/tree/master/sorting)
+## O(n^2)的排序算法
 
 * insertion sort 插入排序
 * bubble sort 冒泡排序
@@ -8,7 +8,7 @@
 
 其中bubble_sort和selection_sort是比较垃圾的，它们都需要完全的n^2次操作，insertion_sort稍微有点不一样的是，在完全正序和完全倒序的输入下，它的运行时间复杂度是O(n)，在大约是正序和大约是倒序的输入下，它的时间接近O(n)。在输入随机顺序的情况下，这几个算法都不适用于大数组排序，insertion_sort只有在大数组几乎已经排序的情况下，才能有一个比较好的运行时间。这几个算法都不能利用多核多计算机并行化计算。但是在小数组排序中可以看到insertion_sort和selection_sort有相对优势，其中可以分析出的是，数组如果足够小，就容易维持在CPU的高速缓存，而且相比其它算法，其它直接了当的在循环中完成，而非递归，因此没有栈上的沉没成本。quick_sort其中的一个优化方案就是在递归层级上的n如果在一个非常小的值，就直接采用insertion_sort实现，代替继续的分割递归。
 
-## O(n*log(n))的排序算法
+## O(n*log2(n))的排序算法
 
 * heap sort 堆排序
 * merge sort 合并排序
@@ -18,11 +18,13 @@ heap_sort其实就是一个放在数组里的最大二叉堆，如果可以允�
 
 ## θ(n)的排序算法
 
-* counting sort 
-* bucket sort
-* radix sort (θ(d*(n+k)))
+* counting sort 计数排序
+* bucket sort 桶排序
+* radix sort (θ(d*(n+k))) 基数排序
 
-这几个算法是满足特殊条件下最快的排序算法，它们都把待排序的值当成数字处理，以数值直接变换为下标运算。counting_sort要求知道数值的具体范围，而且范围不能太大，bucket_sort要根据具体的情况设置桶的数量，当然是桶越多运行时间越快，但是空间占用越大，同时它也要求知道数值的具体范围，范围不能过大。radix_sort是基于counting_sort的一种实现，它只要求要排序的值是数字即可，不要求范围，radix_sort是一种相对比较稳定和更通用化的算法，在大数组排序中甚至能超越quick_sort。
+这几个算法是满足特殊条件下最快的排序算法，它们都把待排序的值当成数字处理，以数值直接变换为下标运算。counting_sort要求知道数值的具体范围，而且范围不能太大，bucket_sort要根据具体的情况设置桶的数量，当然是桶越多运行时间越快，但是空间占用越大，同时它也要求知道数值的具体范围，范围不能过大。radix_sort是基于counting_sort的一种实现，它只要求要排序的值是数字即可，不要求范围，radix_sort是一种相对比较稳定和更通用化的算法，在大数组排序中甚至能超越quick_sort。  
+
+最后分享一个很有趣的Video : [15 Sorting Algorithms in 6 Minutes](https://www.youtube.com/watch?v=kPRA0W1kECg)
 
 ## 测试用例
 
