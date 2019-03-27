@@ -1,5 +1,7 @@
 ## O(n^2)的排序算法
 
+[Open in GitHub](https://github.com/leecjson/AlgoTest/tree/master/sorting)
+
 * insertion sort 插入排序
 * bubble sort 冒泡排序
 * selection sort 选择排序
