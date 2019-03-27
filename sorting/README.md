@@ -6,7 +6,7 @@
 * bubble sort 冒泡排序
 * selection sort 选择排序
 
-其中bubble_sort和selection_sort是比较垃圾的，它们都需要完全的n^2次操作，insertion_sort稍微有点不一样的是，在完全正序和完全倒序的输入下，它的运行时间复杂度是O(n)，在大约是正序和大约是倒序的输入下，它的时间接近O(n)。在输入随机顺序的情况下，这几个算法都不适用于大数组排序，insertion_sort只有在大数组几乎已经排序的情况下，才能有一个比较好的运行时间。这几个算法都不能利用多核多计算机并行化计算。但是在小数组排序中可以看到insertion_sort和selection_sort有相对优势，其中可以分析出的是，数组如果足够小，就容易维持在CPU的高速缓存，而且相比其它算法，其它直接了当的在循环中完成，而非递归，因此没有栈上的沉没成本。quick_sort其中的一个优化方案就是在递归层级上的n如果在一个非常小的值，就直接采用insertion_sort实现，代替继续的分割递归。
+其中bubble_sort和selection_sort是比较垃圾的，它们都需要完全的n^2次操作，insertion_sort稍微有点不一样的是，在完全正序和大约是正序的输入下，它的运行时间复杂度是或接近O(n)，如果是完全倒序则是最差的结果O(n^2)。在输入随机顺序的情况下，这几个算法都不适用于大数组排序，insertion_sort只有在大数组几乎已经排序的情况下，才能有一个比较好的运行时间。这几个算法都不能利用多核多计算机并行化计算。但是在小数组排序中可以看到insertion_sort和selection_sort有相对优势，其中可以分析出的是，数组如果足够小，就容易维持在CPU的高速缓存，而且相比其它算法，其它直接了当的在循环中完成，而非递归，因此没有栈上的沉没成本。quick_sort其中的一个优化方案就是在递归层级上的n如果在一个非常小的值，就直接采用insertion_sort实现，代替继续的分割递归。
 
 ## O(n*log2(n))的排序算法
 
@@ -33,188 +33,188 @@ heap_sort其实就是一个放在数组里的最大二叉堆，需要每次输�
 ### Random Test: (10)
 Function|Cost
 ----|----
-insertion_sort|0.000255ms
+insertion_sort|0.000256ms
+std::sort|0.000256ms
 selection_sort|0.000511ms
-std::sort|0.000511ms
 quick_sort|0.000511ms
 heap_sort|0.000511ms
 bubble_sort|0.000767ms
+merge_sort|0.000767ms
 qsort|0.001022ms
-merge_sort|0.001022ms
-radix_sort|0.002044ms
+radix_sort|0.001277ms
 
 ### Ascending Order Test: (10)
 Function|Cost
 ----|----
 insertion_sort|0ms
+std::sort|0ms
 selection_sort|0.000255ms
-std::sort|0.000255ms
+heap_sort|0.000256ms
 bubble_sort|0.000511ms
 quick_sort|0.000511ms
-heap_sort|0.000511ms
 qsort|0.000766ms
-radix_sort|0.001022ms
-merge_sort|0.002555ms
+merge_sort|0.000767ms
+radix_sort|0.000767ms
 
 ### Descending Order Test: (10)
 Function|Cost
 ----|----
-std::sort|0ms
-selection_sort|0.000255ms
-quick_sort|0.000255ms
-insertion_sort|0.000256ms
-bubble_sort|0.000511ms
-qsort|0.000511ms
-heap_sort|0.000511ms
-merge_sort|0.000767ms
-radix_sort|0.000767ms
+insertion_sort|0.000255ms
+heap_sort|0.000255ms
+selection_sort|0.000511ms
+quick_sort|0.000511ms
+bubble_sort|0.000766ms
+std::sort|0.000767ms
+radix_sort|0.001022ms
+qsort|0.001277ms
+merge_sort|0.001277ms
 
 ### Random Test: (100)
 Function|Cost
 ----|----
-insertion_sort|0.002044ms
-std::sort|0.00281ms
-heap_sort|0.003321ms
-quick_sort|0.003577ms
-radix_sort|0.00511ms
+insertion_sort|0.0023ms
+std::sort|0.003066ms
+heap_sort|0.003322ms
+quick_sort|0.003832ms
+radix_sort|0.004854ms
 merge_sort|0.005621ms
-selection_sort|0.00741ms
-qsort|0.007664ms
-bubble_sort|0.014052ms
+selection_sort|0.007409ms
+qsort|0.007665ms
+bubble_sort|0.013796ms
 
 ### Ascending Order Test: (100)
 Function|Cost
 ----|----
-insertion_sort|0.000256ms
-std::sort|0.000767ms
+insertion_sort|0ms
+std::sort|0.001022ms
 quick_sort|0.001533ms
-radix_sort|0.002555ms
+radix_sort|0.0023ms
 heap_sort|0.00281ms
-merge_sort|0.003066ms
-qsort|0.003576ms
-selection_sort|0.005366ms
-bubble_sort|0.006643ms
-
-### Descending Order Test: (100)
-Function|Cost
-----|----
-insertion_sort|0.000511ms
-std::sort|0.000766ms
-quick_sort|0.001788ms
-heap_sort|0.00281ms
-radix_sort|0.00281ms
 merge_sort|0.003065ms
 qsort|0.003577ms
 selection_sort|0.005621ms
 bubble_sort|0.006387ms
 
+### Descending Order Test: (100)
+Function|Cost
+----|----
+std::sort|0.001533ms
+quick_sort|0.001533ms
+insertion_sort|0.002555ms
+radix_sort|0.002555ms
+heap_sort|0.00281ms
+merge_sort|0.003066ms
+qsort|0.004088ms
+selection_sort|0.007665ms
+bubble_sort|0.009965ms
+
 ### Random Test: (2048)
 Function|Cost
 ----|----
-heap_sort|0.076646ms
-radix_sort|0.08099ms
-std::sort|0.086611ms
+heap_sort|0.076136ms
+radix_sort|0.084823ms
+std::sort|0.085333ms
 quick_sort|0.09402ms
-merge_sort|0.144351ms
-qsort|0.206435ms
-insertion_sort|0.438419ms
+merge_sort|0.146651ms
+qsort|0.299434ms
+insertion_sort|0.426156ms
 selection_sort|1.92511ms
-bubble_sort|3.52856ms
+bubble_sort|3.4979ms
 
 ### Ascending Order Test: (2048)
 Function|Cost
 ----|----
-insertion_sort|0.002044ms
+insertion_sort|0.002043ms
 std::sort|0.012008ms
-quick_sort|0.01303ms
-merge_sort|0.04982ms
-heap_sort|0.062595ms
-radix_sort|0.064639ms
-qsort|0.076646ms
-selection_sort|1.93814ms
-bubble_sort|2.11979ms
+quick_sort|0.012774ms
+merge_sort|0.051353ms
+heap_sort|0.06285ms
+radix_sort|0.068216ms
+qsort|0.076647ms
+selection_sort|1.93916ms
+bubble_sort|2.13998ms
 
 ### Descending Order Test: (2048)
 Function|Cost
 ----|----
-insertion_sort|0.001789ms
-std::sort|0.011753ms
-quick_sort|0.012775ms
-merge_sort|0.04982ms
+quick_sort|0.013541ms
+std::sort|0.019673ms
+merge_sort|0.051865ms
 heap_sort|0.063106ms
-radix_sort|0.064639ms
-qsort|0.076646ms
-selection_sort|1.94453ms
-bubble_sort|2.20998ms
+radix_sort|0.068215ms
+qsort|0.082012ms
+insertion_sort|0.863042ms
+selection_sort|2.03982ms
+bubble_sort|3.31165ms
 
 ### Random Test: (100000)
 Function|Cost
 ----|----
-radix_sort|4.08399ms
-heap_sort|5.81646ms
-std::sort|5.97896ms
-quick_sort|6.19254ms
-merge_sort|9.64855ms
-qsort|14.2272ms
-insertion_sort|1010.97ms
-selection_sort|4314.77ms
-bubble_sort|16228.6ms
+radix_sort|4.26309ms
+heap_sort|5.83895ms
+std::sort|5.99224ms
+quick_sort|6.25718ms
+merge_sort|9.65136ms
+qsort|14.5501ms
+insertion_sort|1012.17ms
+selection_sort|4329.14ms
+bubble_sort|16221.1ms
 
 ### Ascending Order Test: (100000)
 Function|Cost
 ----|----
 insertion_sort|0.092487ms
-quick_sort|0.827274ms
-std::sort|0.926404ms
-merge_sort|3.1369ms
-radix_sort|4.09191ms
-heap_sort|4.56585ms
-qsort|4.97718ms
-selection_sort|4496.34ms
-bubble_sort|5119.64ms
+quick_sort|0.81731ms
+std::sort|0.931514ms
+merge_sort|3.14431ms
+radix_sort|4.08757ms
+heap_sort|4.56227ms
+qsort|4.94959ms
+selection_sort|4539.34ms
+bubble_sort|5126.57ms
 
 ### Descending Order Test: (100000)
 Function|Cost
 ----|----
-insertion_sort|0.091976ms
-quick_sort|0.817566ms
-std::sort|0.926659ms
-merge_sort|3.15095ms
-radix_sort|4.08016ms
-heap_sort|4.55026ms
-qsort|4.9897ms
-selection_sort|4515.32ms
-bubble_sort|5099.9ms
+quick_sort|0.849501ms
+std::sort|1.15737ms
+merge_sort|3.32851ms
+radix_sort|4.11337ms
+heap_sort|4.50606ms
+qsort|5.15807ms
+insertion_sort|2030.31ms
+selection_sort|4615.44ms
+bubble_sort|7656.6ms
 
 ### Random Test: (10000000)
 Function|Cost
 ----|----
-radix_sort|438.893ms
-std::sort|575.052ms
-quick_sort|654.543ms
-merge_sort|1142.97ms
-qsort|1280.58ms
-heap_sort|3013.18ms
-bucket_sort|3491.35ms
+radix_sort|432.295ms
+std::sort|574.119ms
+quick_sort|650.826ms
+merge_sort|1136.57ms
+qsort|1288.5ms
+heap_sort|3009.28ms
+bucket_sort|3429.93ms
 
 ### Ascending Order Test: (10000000)
 Function|Cost
 ----|----
-quick_sort|104.541ms
-std::sort|143.37ms
-merge_sort|398.077ms
-radix_sort|603.373ms
-heap_sort|666.731ms
-qsort|688.126ms
-bucket_sort|836.04ms
+quick_sort|102.78ms
+std::sort|140.642ms
+merge_sort|395.579ms
+radix_sort|619.162ms
+heap_sort|667.379ms
+qsort|684.071ms
+bucket_sort|826.32ms
 
 ### Descending Order Test: (10000000)
 Function|Cost
 ----|----
-quick_sort|104.082ms
-std::sort|141.883ms
-merge_sort|395.885ms
-radix_sort|599.715ms
-heap_sort|669.701ms
-qsort|685.884ms
-bucket_sort|828.724ms
+quick_sort|110.847ms
+std::sort|164.49ms
+merge_sort|429.534ms
+radix_sort|602.359ms
+heap_sort|686.433ms
+qsort|708.781ms
+bucket_sort|3216.34ms

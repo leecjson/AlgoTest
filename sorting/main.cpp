@@ -96,8 +96,9 @@ namespace sorting {
 
   auto MeasureDescendingOrderCase(size_t num, const SortFn& fn) {
     vector<uint32_t> vec(num);
-    for (auto i = num; i-- > 0;) {
-      vec[i] = static_cast<uint32_t>(i);
+    uint32_t j = 0;
+    for (auto i = num; i-- > 0; ++j) {
+      vec[i] = static_cast<uint32_t>(j);
     }
     return Measure(fn, vec);
   }
